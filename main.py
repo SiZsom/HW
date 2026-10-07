@@ -53,7 +53,7 @@ view.setRenderHint(QPainter.RenderHint.Antialiasing)
 view.show()
 
 A = np.array([60,120,50,60])
-om = np.array([0.31, 0.42, 0.811, 2.332])
+om = np.array([0.31, -0.42, 0.811, -2.332])
 phi = np.zeros(4)
 arms = [] #A forgó karok
 joints = [] #A karok közti "csapágyak"
