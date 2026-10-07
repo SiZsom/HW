@@ -40,9 +40,9 @@ def updateLineSequences(A, phi, arms, joints, origin = (0,0)):
 app = QApplication(sys.argv)
 scene = QGraphicsScene(-400, -225, 800, 450)
 
-line_pen = QPen(QColor("#469FCF"), 3)
+line_pen = QPen(QColor("#CCE035"), 3)
 #circle_pen = QPen(QColor("#469FCF"), 1)
-circle_brush = QBrush(QColor("#841F1F"))
+circle_brush = QBrush(QColor("#2D0057"))
 
 
 
@@ -52,8 +52,8 @@ view.resize(800, 450)
 view.setRenderHint(QPainter.RenderHint.Antialiasing)
 view.show()
 
-A = np.array([60,140,30,40])
-om = np.array([0.2, 0.4, 0.8, 1.6])
+A = np.array([60,120,50,60])
+om = np.array([0.31, 0.42, 0.811, 2.332])
 phi = np.zeros(4)
 arms = [] #A forgó karok
 joints = [] #A karok közti "csapágyak"
