@@ -5,37 +5,8 @@ from PyQt6.QtGui import QBrush, QColor, QPainter, QPen
 from PyQt6.QtWidgets import QApplication, QGraphicsScene, QGraphicsView
 
 
-def createLineSequences(A, phi, Lpen: QPen, Cbrush:QBrush, scene: QGraphicsScene, origin = (0,0)):
-    dx = A*np.cos(phi)
-    dy = A*np.sin(phi)
-
-    x, y = origin
-
-    arms = [] #A forgó karok
-    joints = [] #A karok közti "csapágyak"
-    
-    for i in range(len(A)):
-            arms.append(scene.addLine(x, y, x+dx[i], y+dy[i], Lpen))
-            joints.append(scene.addEllipse(-5, -5, 10, 10, QPen(Qt.PenStyle.NoPen), Cbrush))
-            x += dx[i]
-            y += dy[i]
-            
-    return arms, joints
-
-def updateLineSequences(A, phi, arms, joints, origin = (0,0)):
-    dx = A*np.cos(phi)
-    dy = A*np.sin(phi)
-
-    x, y = origin
-
-    for i in range(len(A)):
-        arms[i].setLine(x, y, x+dx[i], y+dy[i])
-        joints[i].setPos(x,y)
-
-        x += dx[i]
-        y += dy[i]
-
-
+import config
+import graphics
 
 app = QApplication(sys.argv)
 scene = QGraphicsScene(-400, -225, 800, 450)
@@ -47,7 +18,7 @@ circle_brush = QBrush(QColor("#2D0057"))
 
 
 view = QGraphicsView(scene)
-view.setWindowTitle("GUI demo")
+view.setWindowTitle("FFT visualiser")
 view.resize(800, 450)
 view.setRenderHint(QPainter.RenderHint.Antialiasing)
 view.show()
@@ -55,10 +26,11 @@ view.show()
 A = np.array([60,120,50,60])
 om = np.array([0.31, -0.42, 0.811, -2.332])
 phi = np.zeros(4)
-arms = [] #A forgó karok
-joints = [] #A karok közti "csapágyak"
 
-arms, joints = createLineSequences(A, phi, line_pen, circle_brush, scene)
+arms = [] #A forgó karok megjelenítése
+joints = [] #A karok közti "csapágyak" megjelenítése
+
+arms, joints = graphics.createLineSequences(A, phi, line_pen, circle_brush, scene)
 
 
 
@@ -77,7 +49,7 @@ def gameLoop():
     if dt > 0.1: dt = 0.1
 
     phi += om*dt #Update positions
-    updateLineSequences(A, phi, arms, joints)
+    graphics.updateLineSequences(A, phi, arms, joints)
 
 
 
@@ -89,4 +61,5 @@ sys.exit(app.exec())
 
 
 
-        
+if __name__ == "__main__":
+    main()
